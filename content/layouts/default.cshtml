@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="@Model.Root/assets/resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="@Model.Root/assets/resources/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="@Model.Root/assets/resources/syntax/syntax.css">
-    <link rel="stylesheet" href="@Model.Root/assets/css/styles.css">
+    <link rel="stylesheet" href="@Model.Root/assets/css/style.css">
     
     <link rel="shortcut icon" href="@Model.Root/favicon.png">
     
@@ -29,7 +29,7 @@
     <script type="text/javascript" src="@Model.Root/fsharp.formatting/tooltips.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-    <link rel="alternate" type="application/rss+xml" title="@Model.Title" href="@Model.Root/rss.xml">
+    <link rel="alternate" type="application/rss+xml" title="" href="@Model.Root/rss.xml">
 </head>
 <body>
     <!-- Mobile Nav Section -->
@@ -38,7 +38,9 @@
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"><a href="@Model.Root/index.html"</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
             </button>
             
             <a type="button" class="navbar-toggle nav-link" href="http://github.com/jeremyabbott">
@@ -51,7 +53,7 @@
             <a type="button" class="navbar-toggle nav-link" href="mailto:jeremymabbott@gmail.com">
                 <i class="fa fa-envelope"></i>
             </a>
-            <a class="navbar-brand" href="@Model.Root/index.html">
+            <a class="navbar-brand" href="@Model.Root">
                 <img src="http://www.gravatar.com/avatar/d2087702a492be991c18b4dc0fed20d1.png?s=35" class="img-circle" />
             </a>
         </div>
@@ -59,7 +61,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="@Model.Root/index.html/">Home</a></li>
+                <li class="active"><a href="@Model.Root/">Home</a></li>
                 <li><a href="@Model.Root/blog/index.html">Blog</a></li>
                 <li><a href="#">Résumé</a></li>
             </ul>
@@ -72,7 +74,7 @@
             <i class="fa fa-bars"></i>
         </button>
         <ul class="dropdown-menu" role="menu">
-            <li><a href="@Model.Root/index.html"><i class="fa fa-home"></i>Home</a></li>
+            <li><a href="@Model.Root"><i class="fa fa-home"></i>Home</a></li>
             <li><a href="@Model.Root/blog"><i class="fa fa-pencil"></i>Blog</a></li>
             <li><a href="#"><i class="fa fa-file-pdf-o"></i>Résumé</a></li>
             <li class="divider"></li>
@@ -80,62 +82,61 @@
         </ul>
     </div>
 
-    !-- sidebar -->
-
-    <header class="sidebar-header" role="banner">
-        <a href="@Model.Root/index.html">
-            <img src="http://www.gravatar.com/avatar/d2087702a492be991c18b4dc0fed20d1?s=150" class="img-circle" />
-        </a>
-        <h3 class="title">
-            <a href="@Model.Root/index.html">@Model.Title</a>
-        </h3>
-    </header>
-    <div id="bio" class="text-center">
-        Bio Goes Here
-    </div>
-    <div id="contact-list" class="text-center">
-        <ul class="list-unstyled list-inline">
-            <li>
-                <a class="btn btn-default btn-sm" href="https://github.com/jeremyabbott">
-                    <i class="fa fa-github-alt fa-lg"></i>
-                </a>
-            </li>
-            <li>
-                <a class="btn btn-default btn-sm" href="https://twitter.com/mrjabbott">
-                    <i class="fa fa-twitter fa-lg"></i>
-                </a>
-            </li>
-            <li>
-                <a class="btn btn-default btn-sm" href="mailto:jeremymabbott@gmail.com">
-                    <i class="fa fa-envelope fa-lg"></i>
-                </a>
-            </li>
-        </ul>
-        <ul id="contact-list-secondary" class="list-unstyled list-inline">
-            <li>
-                <a class="btn btn-default btn-sm" href="@Model.Root/rss.xml">
-                    <i class="fa fa-rss fa-lg"></i>
-                </a>
-            </li>
-        </ul>
+    <!-- sidebar -->
+    <div class="col-sm-3 sidebar hidden-xs">
+        <header class="sidebar-header" role="banner">
+            <a href="@Model.Root">
+                <img src="http://www.gravatar.com/avatar/d2087702a492be991c18b4dc0fed20d1?s=150" class="img-circle" />
+            </a>
+            <h3 class="title">
+                <a href="@Model.Root">Jeremy Abbott</a>
+            </h3>
+            </header>
+        <div id="bio" class="text-center">
+            Bio Goes Here
+        </div>
+        <div id="contact-list" class="text-center">
+            <ul class="list-unstyled list-inline">
+                <li>
+                    <a class="btn btn-default btn-sm" href="https://github.com/jeremyabbott">
+                        <i class="fa fa-github-alt fa-lg"></i>
+                    </a>
+                </li>
+                <li>
+                    <a class="btn btn-default btn-sm" href="https://twitter.com/mrjabbott">
+                        <i class="fa fa-twitter fa-lg"></i>
+                    </a>
+                </li>
+                <li>
+                    <a class="btn btn-default btn-sm" href="mailto:jeremymabbott@gmail.com">
+                        <i class="fa fa-envelope fa-lg"></i>
+                    </a>
+                </li>
+            </ul>
+            <ul id="contact-list-secondary" class="list-unstyled list-inline">
+                <li>
+                    <a class="btn btn-default btn-sm" href="@Model.Root/rss.xml">
+                        <i class="fa fa-rss fa-lg"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
 
     <!-- content -->
     <div class="col-sm-9 col-sm-offset-3">
+        <div class="page-header">
+            <h1>Jeremy Abbott</h1>
+            <em>(Not the figure skater)</em>
+        </div>
         @RenderBody()
-        <h2>Recent posts</h2>
-            @foreach (var post in Enumerable.Take(Model.Posts, 5))
-            {
-                <h3 class="h2link"><a href="@Model.Root/blog/@post.Url/index.html">@post.Title</a></h3>
-                <p class="view"><small>@PostDate(post.Date)</small><br />@post.Abstract</p>
-            }
-
+        
         <footer>
             <hr/>
             <p>Powered by <a href="https://twitter.com/mattdrivendev">MattDrivenDev's</a>&nbsp;<a href="https://github.com/fsprojects/FsBlog">FsBlog</a></p>
             <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/dbtek/dbyll">dbtek</a></small></p>
             <p>
-                &copy; @DateTime.Now.Year.
+                
             </p>
         </footer>
     </div>
