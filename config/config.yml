@@ -16,5 +16,5 @@ layouts: layouts
 content: content
 template: tools/empty-template.html
 output: output/
-deploy: https://github.com/jeremyabbott/jeremyabbott.github.io
+deploy: deploy
 themes: themes
