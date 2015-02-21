@@ -3,7 +3,7 @@
 # ----------------------- #
 
 url: http://localhost:8080/FsBlog
-gitlocation: https://github.com/jeremyabbott/jeremyabbott.github.io
+gitlocation: https://github.com/jeremyabbott/jeremyabbott.github.io.git
 gitbranch: master
 title: Jeremy Abbott 
 description: >
@@ -16,5 +16,5 @@ layouts: layouts
 content: content
 template: tools/empty-template.html
 output: output/
-deploy: jeremyabbott.github.io
+deploy: deploy
 themes: themes
