@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Jeremy Abbott</title>
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" href="http://localhost:8080/FsBlog/assets/resources/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://localhost:8080/FsBlog/assets/resources/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://localhost:8080/FsBlog/assets/resources/syntax/syntax.css">
+    <link rel="stylesheet" href="http://localhost:8080/FsBlog/assets/css/style.css">
+    
+    <link rel="shortcut icon" href="http://localhost:8080/FsBlog/favicon.png">
+    
+    <!-- FSharp.Formatting Styles -->
+    <link rel="stylesheet" type="text/css" media="screen" href="http://localhost:8080/FsBlog/fsharp.formatting/tooltips.css" />
+    <script type="text/javascript" src="http://localhost:8080/FsBlog/fsharp.formatting/tooltips.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    <link rel="alternate" type="application/rss+xml" title="" href="http://localhost:8080/FsBlog/rss.xml">
+</head>
+<body>
+    <!-- Mobile Nav Section -->
+    <nav class="navbar navbar-default visible-xs" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+            <a type="button" class="navbar-toggle nav-link" href="http://github.com/jeremyabbott">
+                <i class="fa fa-github"></i>
+            </a>
+            
+            <a type="button" class="navbar-toggle nav-link" href="http://twitter.com/mrjabbott">
+                <i class="fa fa-twitter"></i>
+            </a>
+            <a type="button" class="navbar-toggle nav-link" href="mailto:jeremymabbott@gmail.com">
+                <i class="fa fa-envelope"></i>
+            </a>
+            <a class="navbar-brand" href="http://localhost:8080/FsBlog">
+                <img src="http://www.gravatar.com/avatar/d2087702a492be991c18b4dc0fed20d1.png?s=35" class="img-circle" />
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="http://localhost:8080/FsBlog/">Home</a></li>
+                <li><a href="http://localhost:8080/FsBlog/blog/index.html">Blog</a></li>
+                <li><a href="#">Résumé</a></li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </nav>
+
+    <!-- nav-menu-dropdown -->
+    <div class="btn-group hidden-xs" id="nav-menu">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            <i class="fa fa-bars"></i>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li><a href="http://localhost:8080/FsBlog"><i class="fa fa-home"></i>Home</a></li>
+            <li><a href="http://localhost:8080/FsBlog/blog"><i class="fa fa-pencil"></i>Blog</a></li>
+            <li><a href="#"><i class="fa fa-file-pdf-o"></i>Résumé</a></li>
+            <li class="divider"></li>
+            <li><a href="#"><i class="fa fa-arrow-up"></i>Top of Page</a></li>
+        </ul>
+    </div>
+
+    <!-- sidebar -->
+    <div class="col-sm-3 sidebar hidden-xs">
+        <header class="sidebar-header" role="banner">
+            <a href="http://localhost:8080/FsBlog">
+                <img src="http://www.gravatar.com/avatar/d2087702a492be991c18b4dc0fed20d1?s=150" class="img-circle" />
+            </a>
+            <h3 class="title">
+                <a href="http://localhost:8080/FsBlog">Jeremy Abbott</a>
+            </h3>
+            </header>
+        <div id="bio" class="text-center">
+            Bio Goes Here
+        </div>
+        <div id="contact-list" class="text-center">
+            <ul class="list-unstyled list-inline">
+                <li>
+                    <a class="btn btn-default btn-sm" href="https://github.com/jeremyabbott">
+                        <i class="fa fa-github-alt fa-lg"></i>
+                    </a>
+                </li>
+                <li>
+                    <a class="btn btn-default btn-sm" href="https://twitter.com/mrjabbott">
+                        <i class="fa fa-twitter fa-lg"></i>
+                    </a>
+                </li>
+                <li>
+                    <a class="btn btn-default btn-sm" href="mailto:jeremymabbott@gmail.com">
+                        <i class="fa fa-envelope fa-lg"></i>
+                    </a>
+                </li>
+            </ul>
+            <ul id="contact-list-secondary" class="list-unstyled list-inline">
+                <li>
+                    <a class="btn btn-default btn-sm" href="http://localhost:8080/FsBlog/rss.xml">
+                        <i class="fa fa-rss fa-lg"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- content -->
+    <div class="col-sm-9 col-sm-offset-3">
+        <div class="page-header">
+            <h1>Jeremy Abbott</h1>
+            <em>(Not the figure skater)</em>
+        </div>
+        
+<h1>JavaScript: The Good Parts: The Good Parts</h1>
+
+<h1>JavaScript: The Good Parts - The Good Parts</h1>
+
+<p>I've been meaning to read <em>JavaScript: The Good Parts</em> by Douglas Crockford for over a year. It's been sitting on my stack of shame (stack of programming books I have every intention of reading) collecting dust for MONTHS. It's an understatement to say that I'd been doing myself a disservice to not have read it sooner. Crockford's book provides a concise yet complete assessment of all of JavaScript's frustrating nuances.</p>
+
+<p>JavaScript is a hastily constructed language that was shipped before it had time to be polished. The web runs on a half-baked language! However, by using a subset of JavaScript, and following a few rules, we can make writing and maintaining JavaScript manageable. The book is a quick and enjoyable read in no small part  because Crockford is not afraid to point out the terrible features of the language. In a general sense JavaScript can cause a lot of heartache because its familiar syntax coaxes you into believing it behaves like the languages that syntax came from. This leads to code being written based on incorrect assumptions.</p>
+
+<p>What follows isn't so much a review of the book, but a brief overview of a JavaScript nuances the book describes really well. Specifically, these are items that I see developers new to the language really struggle with. The range of topics covered by the book is extensive, and every chapter is worth reading.</p>
+
+<h2>Variable Hoisting</h2>
+
+<p>While the syntax of the language implies otherwise, variable scope does not change when code is wrapped in a block with curly braces. Instead a new scope is created when a function is defined. Variables defined within a function are only visible within that function. More importantly though is that variables defined within a function are visible everywhere within the function. This is called <em>variable hoisting</em>.</p>
+
+<p>Basic variable hoisting:</p>
+
+<p>function hoistVariable() {
+    console.log(foo); // undefined
+    var foo = "foo";
+    console.log(foo); // "foo"
+    console.log(bar); // throws an exception because bar is never declared.
+}</p>
+
+<p>hoistVariable();</p>
+
+<p>Hoisted variable within a block within a function:</p>
+
+<p>function hoistVariable() {
+    console.log(foo); // undefined</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="k">if</span> (<span class="k">true</span>) { 
+    <span class="i">var</span> <span class="i">foo</span> <span class="o">=</span> <span class="s">&quot;</span><span class="s">foo</span><span class="s">&quot;</span>;
+    <span class="i">console</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">log</span>(<span class="i">foo</span>); <span class="c">// &quot;foo&quot;</span>
+}
+<span class="c">// The if block did not create a new scope. Foo was still hoisted to the beginning of the function</span></pre>
+</td>
+</tr>
+</table>
+
+<p>}</p>
+
+<p>hoistVariable();</p>
+
+<p>Variable declared twice within a function. Once at the beginning of the function, and again within an if statement.</p>
+
+<p>function hoistVariable() {
+    var foo = "foo";
+    console.log(foo); "foo"</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="k">if</span> (<span class="k">true</span>) { 
+    <span class="i">var</span> <span class="i">foo</span> <span class="o">=</span> <span class="s">&quot;</span><span class="s">also</span><span class="s"> </span><span class="s">foo</span><span class="s">&quot;</span>; <span class="c">// this is really bad.</span>
+    <span class="i">console</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs1', 2)" onmouseover="showTip(event, 'fs1', 2)" class="i">log</span>(<span class="i">foo</span>); <span class="c">// &quot;also foo&quot;</span>
+}
+<span class="i">console</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs1', 3)" onmouseover="showTip(event, 'fs1', 3)" class="i">log</span>(<span class="i">foo</span>); <span class="c">// &quot;also foo&quot;</span></pre>
+</td>
+</tr>
+</table>
+
+<p>}</p>
+
+<p>hoistVariable();</p>
+
+<p>Because of variable hoisting Crockford recommends declaring all variables at the beginning of the function. Doing this helps prevent using variables before they're assigned. Variable hoisting is a great example of how JavaScript's familiar syntax can lead to programmatic errors that are either easier to catch or impossible to make in other languages.</p>
+
+<h2>The <em>this</em> Keyword</h2>
+
+<p>The <em>this</em> keyword is a source of great pain in JavaScript. The value of <em>this</em> changes significantly based on how or when it is used.</p>
+
+<p><em>JavaScript: The Good Parts</em> describes the <em>this</em> keyword as an additional parameter that gets passed in with every function.  The value of <em>this</em> depends on how a function is invoked. A JavaScript "bad part" is that the value of this is not necessarily bound to the same scope as the function it's used in.</p>
+
+<p>Changing a globally declared variable within a function:</p>
+
+<p>var foo = "foo";
+console.log(foo); // foo is bound to the global object.</p>
+
+<p>function doSomething() {
+    this.foo = "foo again";
+    console.log(this.foo);
+}</p>
+
+<p>if (this.doSomething !== null){
+    this.doSomething(); // "foo again"
+    console.log(foo) // "foo again"
+}</p>
+
+<p>The example above demonstrates that a function defined in the global scope is bound to the global object. The value of <em>this</em> did not change when used inside of a function. <em>this</em> was still bound to the global object scope.</p>
+
+<p>So when does the context of <em>this</em> change? There are two cases:
+1. When <em>this</em> is passed in as an argument to the "apply" function, and 
+2. When a new object is created using the <em>new</em> operator.</p>
+
+<p>In JavaScript functions are objects and just like any other object they can have methods. One of those methods is "apply."</p>
+
+<h3>Controlling the context of <em>this</em> with apply</h3>
+
+<p>Using apply we can call a function and tell it what <em>this</em> is:</p>
+
+<p>function printDescription() {
+    console.log(this.description);
+}</p>
+
+<p>var thing1 = { description: "thing 1"};</p>
+
+<p>// when null is passed in <em>this</em> is bound to the global object
+printDescription.apply(null); // prints undefined because description is not a property on the global object.</p>
+
+<p>// pass in thing1 as the value for <em>this</em>
+printDescription.apply(thing1); // prints "thing 1" because <em>this</em> has a description property</p>
+
+<p>The "apply" method allows us to invoke a function, explicitly define what <em>this</em> is bound to within that function, and pass in a list of arguments.</p>
+
+<h3>Controlling the context of <em>this</em> with the <em>new</em> operator</h3>
+
+<p>As mentioned above, the context of <em>this</em> does not necessarily change when variable scope changes. The value of <em>this</em> within a function can be, and often is, the same as <em>this</em> in the global scope.</p>
+
+<p>Using the <em>new</em> operator when invoking a function does change the context of <em>this</em>. Functions that are invoked with <em>new</em> are called constructor functions and by convention start with an upper-case letter (PascalCase). <strong>Invoking a constructor function without the <em>new</em> operator can cause all sorts of nasty things to happen!</strong></p>
+
+<p>Example of using constructor functions with and without <em>new</em>.</p>
+
+<p>var foo = "global foo variable";</p>
+
+<p>// PascalCase indicating constructor function
+function Thing() {
+    this.foo = "thing's foo variable";
+}</p>
+
+<p>// create a new Thing object using the <em>new</em> operator
+var someThing = new Thing();
+console.log(someThing.foo); // "thing's foo variable"</p>
+
+<p>// invoked without new operator
+var someOtherThing = Thing();
+console.log(foo); // "thing's foo variable"
+console.log(someOtherThing.foo); // throws exception because someOtherThing is undefined.</p>
+
+<p>In the preceding example, the value of a global variable was accidentally changed when a constructor function was invoked without the <em>new</em> operator.</p>
+
+<p>The <em>new</em> operator changes the behavior of the <em>return</em> keyword too. All functions return something. When that something is not explicitly stated, a function returns undefined. When paired with <em>new</em>, <em>return</em> returns <em>this</em>. That is why, in the previous example, "someOtherThing" was undefined.</p>
+
+<h3>One Other <em>this</em> "Bad Part"</h3>
+
+<p>The value of <em>this</em> takes on the context of the global object when it is not the property of an object. This also has consequences:</p>
+
+<p>var foo = "global foo";</p>
+
+<p>function Thing() {
+    this.foo = "foo property of Thing";
+    this.printDescription = function() {
+        // printDescription is a method on Thing
+        // <em>this</em> is bound to the Thing's context.</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+<span class="l">8: </span>
+<span class="l">9: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+    <span class="k">function</span> <span class="i">helperFunction</span>() {
+        <span class="c">// helperFunction is not a method on Thing</span>
+        <span class="c">// _this_ is bound to the global object&#39;s context.</span>
+
+        <span class="i">console</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs1', 4)" onmouseover="showTip(event, 'fs1', 4)" class="i">log</span>(<span class="s">&quot;</span><span class="s">value</span><span class="s"> </span><span class="s">of</span><span class="s"> </span><span class="s">this</span><span class="s">.</span><span class="s">foo</span><span class="s"> </span><span class="s">from</span><span class="s"> </span><span class="s">helperFunction</span><span class="s">:</span><span class="s"> </span><span class="s">&quot;</span> <span class="o">+</span> <span class="i">this</span><span class="o">.</span><span class="i">foo</span>); <span class="c">// &quot;gobal foo&quot;</span>
+    }
+    <span class="i">helperFunction</span>();
+    <span class="i">console</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs1', 5)" onmouseover="showTip(event, 'fs1', 5)" class="i">log</span>(<span class="s">&quot;</span><span class="s">value</span><span class="s"> </span><span class="s">of</span><span class="s"> </span><span class="s">this</span><span class="s">.</span><span class="s">foo</span><span class="s"> </span><span class="s">from</span><span class="s"> </span><span class="s">within</span><span class="s"> </span><span class="s">printDescription</span><span class="s">:</span><span class="s"> </span><span class="s">&quot;</span> <span class="o">+</span> <span class="i">this</span><span class="o">.</span><span class="i">foo</span>); <span class="c">// &quot;foo property of Thing&quot;</span>
+}</pre>
+</td>
+</tr>
+</table>
+
+<p>}</p>
+
+<p>var someThing = new Thing();</p>
+
+<p>someThing.printDescription();</p>
+
+<p>The most common way of maintaining access to an object's context within that object is to assign <em>this</em> to a variable:</p>
+
+<p>var foo = "global foo";</p>
+
+<p>function Thing() {
+    var self = this;
+    self.foo = "foo property of Thing";</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="i">self</span><span class="o">.</span><span class="i">printDescription</span> <span class="o">=</span> <span class="k">function</span>() {
+    <span class="c">// printDescription is a method on Thing</span>
+    <span class="c">// _this_ is bound to the context of Thing.</span>
+
+    <span class="k">function</span> <span class="i">helperFunction</span>() {
+        <span class="c">// helperFunction is not a method on Thing</span>
+        <span class="c">// _this_ is bound to the global object&#39;s context.</span>
+
+        <span class="i">console</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs1', 6)" onmouseover="showTip(event, 'fs1', 6)" class="i">log</span>(<span class="s">&quot;</span><span class="s">value</span><span class="s"> </span><span class="s">of</span><span class="s"> </span><span class="s">this</span><span class="s">.</span><span class="s">foo</span><span class="s"> </span><span class="s">from</span><span class="s"> </span><span class="s">helperFunction</span><span class="s">:</span><span class="s"> </span><span class="s">&quot;</span> <span class="o">+</span> <span class="i">this</span><span class="o">.</span><span class="i">foo</span>); <span class="c">// &quot;gobal foo&quot;</span>
+        <span class="i">console</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs1', 7)" onmouseover="showTip(event, 'fs1', 7)" class="i">log</span>(<span class="s">&quot;</span><span class="s">value</span><span class="s"> </span><span class="s">of</span><span class="s"> </span><span class="s">this</span><span class="s">.</span><span class="s">foo</span><span class="s"> </span><span class="s">from</span><span class="s"> </span><span class="s">Thing</span><span class="s"> </span><span class="s">constructor</span><span class="s"> </span><span class="s">function</span><span class="s"> </span><span class="s">(</span><span class="s">accessed</span><span class="s"> </span><span class="s">using</span><span class="s"> </span><span class="s">\&quot;</span><span class="s">self</span><span class="s">\&quot;</span><span class="s"> </span><span class="s">variable</span><span class="s">)</span><span class="s">;</span><span class="s"> </span><span class="s">&quot;</span> <span class="o">+</span> <span class="i">self</span><span class="o">.</span><span class="i">foo</span>); <span class="c">// &quot;foo property of Thing&quot;</span>
+    }
+
+    <span class="i">helperFunction</span>();
+
+    <span class="c">// note that self and _this_ are the same at this point!</span>
+    <span class="i">console</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs1', 8)" onmouseover="showTip(event, 'fs1', 8)" class="i">log</span>(<span class="s">&quot;</span><span class="s">value</span><span class="s"> </span><span class="s">of</span><span class="s"> </span><span class="s">this</span><span class="s">.</span><span class="s">foo</span><span class="s">:</span><span class="s"> </span><span class="s">&quot;</span> <span class="o">+</span> <span class="i">this</span><span class="o">.</span><span class="i">foo</span>); <span class="c">// &quot;foo property of Thing&quot;</span>
+}</pre>
+</td>
+</tr>
+</table>
+
+<p>}</p>
+
+<p>var someThing = new Thing();
+someThing.printDescription();</p>
+
+<h2>In Summary</h2>
+
+<ol>
+<li>JavaScript's familiar syntax can cause us to make incorrect assumptions about language behavior.</li>
+<li>A variable defined anywhere in a function is visible everywhere within that function.</li>
+<li>All variables used within a function should be declared at the beginning of a function to make sure they're not accidentally accessed before they're assigned a value.</li>
+<li>The <em>this</em> parameter's value is generally scoped to the global object.
+<ul>
+<li>Using the "apply" method allows you to explicitly set the value of <em>this</em>.</li>
+<li>Using the <em>new</em> operator binds <em>this</em> to the function the operator is applied to (constructor function).</li>
+</ul></li>
+<li>Functions defined within methods have their <em>this</em> parameter bound to the global scope.
+<ul>
+<li>Methods are functions that are properties of an object.</li>
+</ul></li>
+<li>The behavior of <em>return</em> is also changed when the new operator is applied to it.
+<ul>
+<li>Functions return undefined when <em>return</em> is not explicitly used.</li>
+<li>Functions return <em>this</em> when the <em>new</em> operator is applied to it returning an object with all the properties/methods of <em>this</em>.</li>
+</ul></li>
+<li>Using a constuctor function without <em>new</em> can cause global variables to be overwritten with the values of variables assigned within the constructor function.</li>
+</ol>
+
+<p>Everyone writing JavaScript should read this book. It has a wealth of information for developers new to the language, and it provides some interesting background and historal context that JavaScript veterans will appreciate. <a href="http://www.amazon.com/JavaScript-Good-Parts-Douglas-Crockford/dp/0596517742">Go buy it</a>!</p>
+
+<div class="tip" id="fs1">val log : value:&#39;T -&gt; &#39;T (requires member Log)<br /><br />Full name: Microsoft.FSharp.Core.Operators.log</div>
+
+        
+        <footer>
+            <hr/>
+            <p>Powered by <a href="https://twitter.com/mattdrivendev">MattDrivenDev's</a>&nbsp;<a href="https://github.com/fsprojects/FsBlog">FsBlog</a></p>
+            <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/dbtek/dbyll">dbtek</a></small></p>
+            <p>
+                
+            </p>
+        </footer>
+    </div>
+
+    <script type="text/javascript" src="http://localhost:8080/FsBlog/assets/resources/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="http://localhost:8080/FsBlog/assets/resources/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://localhost:8080/FsBlog/assets/js/app.js"></script>
+</body>
+</html>

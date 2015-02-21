@@ -1,0 +1,17 @@
+<rss version="2.0">
+  <channel>
+    <title>Jeremy Abbott</title>
+    <link>http://localhost:8080/FsBlog</link>
+    <description>I need a description
+</description>
+    <item>
+      <title>JavaScript: The Good Parts: The Good Parts</title>
+      <guid>http://localhost:8080/FsBlog/blog/2015/02-11-JavaScriptTheGoodParts</guid>
+      <link>http://localhost:8080/FsBlog/blog/2015/02-11-JavaScriptTheGoodParts/index.html</link>
+      <pubDate>Wed, 11 Feb 2015 14:20:08 GMT</pubDate>
+      <description>
+
+</description>
+    </item>
+  </channel>
+</rss>
