@@ -6,8 +6,6 @@
     Description = "";
 }
 
-#JavaScript: The Good Parts - The Good Parts
-
 I've been meaning to read _JavaScript: The Good Parts_ by Douglas Crockford for over a year. It's been sitting on my stack of shame (stack of programming books I have every intention of reading) collecting dust for MONTHS. It's an understatement to say that I'd been doing myself a disservice to not have read it sooner. Crockford's book provides a concise yet complete assessment of all of JavaScript's frustrating nuances.
 
  JavaScript is a hastily constructed language that was shipped before it had time to be polished. The web runs on a half-baked language! However, by using a subset of JavaScript, and following a few rules, we can make writing and maintaining JavaScript manageable. The book is a quick and enjoyable read in no small part  because Crockford is not afraid to point out the terrible features of the language. In a general sense JavaScript can cause a lot of heartache because its familiar syntax coaxes you into believing it behaves like the languages that syntax came from. This leads to code being written based on incorrect assumptions.
@@ -20,47 +18,43 @@ While the syntax of the language implies otherwise, variable scope does not chan
 Basic variable hoisting:
 
 
-function hoistVariable() {
-    console.log(foo); // undefined
-    var foo = "foo";
-    console.log(foo); // "foo"
-    console.log(bar); // throws an exception because bar is never declared.
-}
+    function hoistVariable() {
+        console.log(foo); // undefined
+        var foo = "foo";
+        console.log(foo); // "foo"
+        console.log(bar); // throws an exception because bar is never declared.
+    }
 
-hoistVariable();
-
+    hoistVariable();
 
 Hoisted variable within a block within a function:
 
+    function hoistVariable() {
+        console.log(foo); // undefined
 
-function hoistVariable() {
-    console.log(foo); // undefined
-
-    if (true) { 
-        var foo = "foo";
-        console.log(foo); // "foo"
+        if (true) { 
+            var foo = "foo";
+            console.log(foo); // "foo"
+        }
+        // The if block did not create a new scope. Foo was still hoisted to the beginning of the function
     }
-    // The if block did not create a new scope. Foo was still hoisted to the beginning of the function
-}
 
-hoistVariable();
+    hoistVariable();
 
+Variable declared twice within a function. Once at the beginning of the function, and again within an if statement:
 
-Variable declared twice within a function. Once at the beginning of the function, and again within an if statement.
+    function hoistVariable() {
+        var foo = "foo";
+        console.log(foo); "foo"
 
-
-function hoistVariable() {
-    var foo = "foo";
-    console.log(foo); "foo"
-
-    if (true) { 
-        var foo = "also foo"; // this is really bad.
+        if (true) { 
+            var foo = "also foo"; // this is really bad.
+            console.log(foo); // "also foo"
+        }
         console.log(foo); // "also foo"
     }
-    console.log(foo); // "also foo"
-}
 
-hoistVariable();
+    hoistVariable();
 
 Because of variable hoisting Crockford recommends declaring all variables at the beginning of the function. Doing this helps prevent using variables before they're assigned. Variable hoisting is a great example of how JavaScript's familiar syntax can lead to programmatic errors that are either easier to catch or impossible to make in other languages.
 
@@ -71,20 +65,18 @@ _JavaScript: The Good Parts_ describes the _this_ keyword as an additional param
 
 Changing a globally declared variable within a function: 
 
+    var foo = "foo";
+    console.log(foo); // foo is bound to the global object.
 
-var foo = "foo";
-console.log(foo); // foo is bound to the global object.
+    function doSomething() {
+        this.foo = "foo again";
+        console.log(this.foo);
+    }
 
-function doSomething() {
-    this.foo = "foo again";
-    console.log(this.foo);
-}
-
-if (this.doSomething !== null){
-    this.doSomething(); // "foo again"
-    console.log(foo) // "foo again"
-}
-
+    if (this.doSomething !== null){
+        this.doSomething(); // "foo again"
+        console.log(foo) // "foo again"
+    }
 
 The example above demonstrates that a function defined in the global scope is bound to the global object. The value of _this_ did not change when used inside of a function. _this_ was still bound to the global object scope.
 
@@ -99,18 +91,17 @@ In JavaScript functions are objects and just like any other object they can have
 Using apply we can call a function and tell it what _this_ is:
 
 
-function printDescription() {
-    console.log(this.description);
-}
+    function printDescription() {
+        console.log(this.description);
+    }
 
-var thing1 = { description: "thing 1"};
+    var thing1 = { description: "thing 1"};
 
-// when null is passed in _this_ is bound to the global object
-printDescription.apply(null); // prints undefined because description is not a property on the global object.
+    // when null is passed in _this_ is bound to the global object
+    printDescription.apply(null); // prints undefined because description is not a property on the global object.
 
-// pass in thing1 as the value for _this_
-printDescription.apply(thing1); // prints "thing 1" because _this_ has a description property
-
+    // pass in thing1 as the value for _this_
+    printDescription.apply(thing1); // prints "thing 1" because _this_ has a description property
 
 The "apply" method allows us to invoke a function, explicitly define what _this_ is bound to within that function, and pass in a list of arguments. 
 
@@ -119,23 +110,23 @@ As mentioned above, the context of _this_ does not necessarily change when varia
 
 Using the _new_ operator when invoking a function does change the context of _this_. Functions that are invoked with _new_ are called constructor functions and by convention start with an upper-case letter (PascalCase). **Invoking a constructor function without the _new_ operator can cause all sorts of nasty things to happen!**
 
-Example of using constructor functions with and without _new_.
+Example of using constructor functions with and without _new_:
 
-var foo = "global foo variable";
+    var foo = "global foo variable";
 
-// PascalCase indicating constructor function
-function Thing() {
-    this.foo = "thing's foo variable";
-}
+    // PascalCase indicating constructor function
+    function Thing() {
+        this.foo = "thing's foo variable";
+    }
 
-// create a new Thing object using the _new_ operator
-var someThing = new Thing();
-console.log(someThing.foo); // "thing's foo variable"
+    // create a new Thing object using the _new_ operator
+    var someThing = new Thing();
+    console.log(someThing.foo); // "thing's foo variable"
 
-// invoked without new operator
-var someOtherThing = Thing();
-console.log(foo); // "thing's foo variable"
-console.log(someOtherThing.foo); // throws exception because someOtherThing is undefined. 
+    // invoked without new operator
+    var someOtherThing = Thing();
+    console.log(foo); // "thing's foo variable"
+    console.log(someOtherThing.foo); // throws exception because someOtherThing is undefined. 
 
 In the preceding example, the value of a global variable was accidentally changed when a constructor function was invoked without the _new_ operator.
 
@@ -145,59 +136,58 @@ The _new_ operator changes the behavior of the _return_ keyword too. All functio
 
 The value of _this_ takes on the context of the global object when it is not the property of an object. This also has consequences:
 
-var foo = "global foo";
+    var foo = "global foo";
 
-function Thing() {
-    this.foo = "foo property of Thing";
-    this.printDescription = function() {
-        // printDescription is a method on Thing
-        // _this_ is bound to the Thing's context.
+    function Thing() {
+        this.foo = "foo property of Thing";
+        this.printDescription = function() {
+            // printDescription is a method on Thing
+            // _this_ is bound to the Thing's context.
 
-        function helperFunction() {
-            // helperFunction is not a method on Thing
-            // _this_ is bound to the global object's context.
+            function helperFunction() {
+                // helperFunction is not a method on Thing
+                // _this_ is bound to the global object's context.
 
-            console.log("value of this.foo from helperFunction: " + this.foo); // "gobal foo"
+                console.log("value of this.foo from helperFunction: " + this.foo); // "gobal foo"
+            }
+            helperFunction();
+            console.log("value of this.foo from within printDescription: " + this.foo); // "foo property of Thing"
         }
-        helperFunction();
-        console.log("value of this.foo from within printDescription: " + this.foo); // "foo property of Thing"
     }
-}
 
-var someThing = new Thing();
+    var someThing = new Thing();
 
-someThing.printDescription();
+    someThing.printDescription();
 
 The most common way of maintaining access to an object's context within that object is to assign _this_ to a variable:
 
+    var foo = "global foo";
 
-var foo = "global foo";
-
-function Thing() {
-    var self = this;
-    self.foo = "foo property of Thing";
-    
-    self.printDescription = function() {
-        // printDescription is a method on Thing
-        // _this_ is bound to the context of Thing.
-
-        function helperFunction() {
-            // helperFunction is not a method on Thing
-            // _this_ is bound to the global object's context.
-
-            console.log("value of this.foo from helperFunction: " + this.foo); // "gobal foo"
-            console.log("value of this.foo from Thing constructor function (accessed using \"self\" variable); " + self.foo); // "foo property of Thing"
-        }
+    function Thing() {
+        var self = this;
+        self.foo = "foo property of Thing";
         
-        helperFunction();
+        self.printDescription = function() {
+            // printDescription is a method on Thing
+            // _this_ is bound to the context of Thing.
 
-        // note that self and _this_ are the same at this point!
-        console.log("value of this.foo: " + this.foo); // "foo property of Thing"
+            function helperFunction() {
+                // helperFunction is not a method on Thing
+                // _this_ is bound to the global object's context.
+
+                console.log("value of this.foo from helperFunction: " + this.foo); // "gobal foo"
+                console.log("value of this.foo from Thing constructor function (accessed using \"self\" variable); " + self.foo); // "foo property of Thing"
+            }
+            
+            helperFunction();
+
+            // note that self and _this_ are the same at this point!
+            console.log("value of this.foo: " + this.foo); // "foo property of Thing"
+        }
     }
-}
 
-var someThing = new Thing();
-someThing.printDescription();
+    var someThing = new Thing();
+    someThing.printDescription();
 
 ##In Summary
 1. JavaScript's familiar syntax can cause us to make incorrect assumptions about language behavior.

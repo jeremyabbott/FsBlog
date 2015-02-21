@@ -1,7 +1,7 @@
 @{
     Layout = "default";
-    Title = "FsBlog";
-    Description = "A blog aware static site generator in mostly F#";
+    Title = "Jeremy Abbott's Blog Posts";
+    Description = "Articles about software development.";
 }
 @using System.Linq
 
@@ -12,7 +12,7 @@
     <ul>
     @foreach (var post in Enumerable.Take(Model.Posts, 10))
     {
-        <li><a href="@Model.Root/blog/@post.Url/">@post.Title</a></li>
+        <li><a href="/blog/@post.Url/">@post.Title</a></li>
     }
     </ul>
 </div>
