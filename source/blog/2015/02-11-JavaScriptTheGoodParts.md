@@ -106,6 +106,7 @@ Using apply we can call a function and tell it what _this_ is:
 The "apply" method allows us to invoke a function, explicitly define what _this_ is bound to within that function, and pass in a list of arguments. 
 
 ###Controlling the context of _this_ with the _new_ operator
+
 As mentioned above, the context of _this_ does not necessarily change when variable scope changes. The value of _this_ within a function can be, and often is, the same as _this_ in the global scope.
 
 Using the _new_ operator when invoking a function does change the context of _this_. Functions that are invoked with _new_ are called constructor functions and by convention start with an upper-case letter (PascalCase). **Invoking a constructor function without the _new_ operator can cause all sorts of nasty things to happen!**
@@ -113,6 +114,7 @@ Using the _new_ operator when invoking a function does change the context of _th
 Example of using constructor functions with and without _new_:
 
     var foo = "global foo variable";
+    console.log(foo); // "global foo variable"
 
     // PascalCase indicating constructor function
     function Thing() {
@@ -148,7 +150,7 @@ The value of _this_ takes on the context of the global object when it is not the
                 // helperFunction is not a method on Thing
                 // _this_ is bound to the global object's context.
 
-                console.log("value of this.foo from helperFunction: " + this.foo); // "gobal foo"
+                console.log("value of this.foo from helperFunction: " + this.foo); // "global foo"
             }
             helperFunction();
             console.log("value of this.foo from within printDescription: " + this.foo); // "foo property of Thing"
@@ -156,7 +158,6 @@ The value of _this_ takes on the context of the global object when it is not the
     }
 
     var someThing = new Thing();
-
     someThing.printDescription();
 
 The most common way of maintaining access to an object's context within that object is to assign _this_ to a variable:
@@ -176,13 +177,13 @@ The most common way of maintaining access to an object's context within that obj
                 // _this_ is bound to the global object's context.
 
                 console.log("value of this.foo from helperFunction: " + this.foo); // "gobal foo"
-                console.log("value of this.foo from Thing constructor function (accessed using \"self\" variable); " + self.foo); // "foo property of Thing"
+                console.log("value of this.foo from helperFunction (accessed using \"self\" variable); " + self.foo); // "foo property of Thing"
             }
             
             helperFunction();
 
             // note that self and _this_ are the same at this point!
-            console.log("value of this.foo: " + this.foo); // "foo property of Thing"
+            console.log("value of this.foo from within printDescription: " + this.foo); // "foo property of Thing"
         }
     }
 
