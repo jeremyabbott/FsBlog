@@ -176,7 +176,7 @@ The most common way of maintaining access to an object's context within that obj
                 // helperFunction is not a method on Thing
                 // _this_ is bound to the global object's context.
 
-                console.log("value of this.foo from helperFunction: " + this.foo); // "gobal foo"
+                console.log("value of this.foo from helperFunction: " + this.foo); // "global foo"
                 console.log("value of this.foo from helperFunction (accessed using \"self\" variable); " + self.foo); // "foo property of Thing"
             }
             
