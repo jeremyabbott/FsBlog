@@ -2,8 +2,8 @@
     Layout = "post";
     Title = "JavaScript: The Good Parts: The Good Parts";
     Date = "2015-02-11T08:20:08";
-    Tags = "";
-    Description = "I've been meaning to read _JavaScript: The Good Parts_ by Douglas Crockford for over a year. It's been sitting on my stack of shame (stack of programming books I have every intention of reading) collecting dust for MONTHS. It's an understatement to say that I'd been doing myself a disservice to not have read it sooner. Crockford's book provides a concise yet complete assessment of all of JavaScript's frustrating nuances.";
+    Tags = "JavaScript, Beginner";
+    Description = "Takeaways from finally reading Douglas Crockford's excellent <em>JavaScript: The Good Parts</em>";
 }
 
 I've been meaning to read _JavaScript: The Good Parts_ by Douglas Crockford for over a year. It's been sitting on my stack of shame (stack of programming books I have every intention of reading) collecting dust for MONTHS. It's an understatement to say that I'd been doing myself a disservice to not have read it sooner. Crockford's book provides a concise yet complete assessment of all of JavaScript's frustrating nuances.
