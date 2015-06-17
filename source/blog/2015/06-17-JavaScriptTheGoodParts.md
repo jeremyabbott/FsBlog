@@ -3,7 +3,7 @@
     Title = "JavaScript: The Good Parts: The Good Parts";
     Date = "2015-06-17T07:34:00";
     Tags = "JavaScript, Beginner";
-    Description = "Takeaways from finally reading Douglas Crockford's excellent <em>JavaScript: The Good Parts</em>";
+    Description = "Takeaways from finally reading Douglas Crockford's excellent <em>JavaScript: The Good Parts";
 }
 
 I've been meaning to read _JavaScript: The Good Parts_ by Douglas Crockford for over a year. It's been sitting on my stack of shame (stack of programming books I have every intention of reading) collecting dust for MONTHS. It's an understatement to say that I'd been doing myself a disservice to not have read it sooner. Crockford's book provides a concise yet complete assessment of all of JavaScript's frustrating nuances.
