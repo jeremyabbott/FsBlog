@@ -3,13 +3,17 @@
     Title = "Jeremy Abbott's Blog Posts";
     Description = "Articles about software development.";
 }
+@helper PostDate(DateTime rawDate)
+{
+    <time datetime="@rawDate.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss")" pubdate data-updated="true">@rawDate.ToString("MMM d, yyyy")</time>
+}
 @using System.Linq
 
 <div>
 @foreach (var post in Enumerable.Take(Model.Posts, 10))
     {
         <article>
-            <h2><a href="/blog/@post.Url/">@post.Title</a></h2>
+            <h2><a href="/blog/@post.Url/">@post.Title - @PostDate(post.Date)</a></h2>
             <p>@post.Description</p>
             <p><a href="/blog/@post.Url/">Read more...<a/></p>
         </article>

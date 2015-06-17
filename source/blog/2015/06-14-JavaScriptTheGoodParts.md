@@ -1,7 +1,7 @@
 @{
     Layout = "post";
     Title = "JavaScript: The Good Parts: The Good Parts";
-    Date = "2015-02-11T08:20:08";
+    Date = "2015-06-17T07:34:00";
     Tags = "JavaScript, Beginner";
     Description = "Takeaways from finally reading Douglas Crockford's excellent <em>JavaScript: The Good Parts</em>";
 }
@@ -16,7 +16,6 @@ What follows isn't so much a review of the book, but a brief overview of a JavaS
 While the syntax of the language implies otherwise, variable scope does not change when code is wrapped in a block with curly braces. Instead a new scope is created when a function is defined. Variables defined within a function are only visible within that function. More importantly though is that variables defined within a function are visible everywhere within the function. This is called _variable hoisting_. 
 
 Basic variable hoisting:
-
 
     function hoistVariable() {
         console.log(foo); // undefined
@@ -205,3 +204,5 @@ The most common way of maintaining access to an object's context within that obj
 7. Using a constuctor function without _new_ can cause global variables to be overwritten with the values of variables assigned within the constructor function.
 
 Everyone writing JavaScript should read this book. It has a wealth of information for developers new to the language, and it provides some interesting background and historal context that JavaScript veterans will appreciate. [Go buy it](http://www.amazon.com/JavaScript-Good-Parts-Douglas-Crockford/dp/0596517742)!
+
+*This is the first post I've ever written and shared on software development. I actually wrote it in February, but I never shared it outside of a couple trusted friends.*
