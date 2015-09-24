@@ -8,27 +8,18 @@
 <head>
     <meta charset="utf-8">
     <title>Jeremy Abbott</title>
-
     <!-- Enable responsive viewport -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
-    <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <link rel="stylesheet" href="/assets/resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/resources/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/assets/resources/syntax/syntax.css">
     <link rel="stylesheet" href="/assets/css/style.css">
-    
-    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/stylesheets/pygment_trac.css">
     
     <!-- FSharp.Formatting Styles -->
     <link rel="stylesheet" type="text/css" media="screen" href="/fsharp.formatting/tooltips.css" />
     <script type="text/javascript" src="/fsharp.formatting/tooltips.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
+    <link rel="shortcut icon" href="/favicon.ico">
     <link rel="alternate" type="application/rss+xml" title="" href="/rss.xml">
 </head>
 <body>
@@ -135,9 +126,9 @@
             <h1>Jeremy Abbott</h1>
             <em>(Not the Figure Skater)</em>
         </div>
-
-        @RenderBody()
-        
+        <div class="container">
+            @RenderBody()
+        </div>
         <footer>
             <hr/>
             <p>Powered by <a href="https://twitter.com/mattdrivendev">MattDrivenDev's</a>&nbsp;<a href="https://github.com/fsprojects/FsBlog">FsBlog</a></p>

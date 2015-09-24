@@ -20,9 +20,7 @@ One of the key productivity features of F# is [Type Providers](https://msdn.micr
 
 To get up and running with the JSON Provider you need to add the [Fsharp.Data](http://fsharp.github.io/FSharp.Data/) NuGet package to your project. In Visual Studio you'll get a warning after the package is successfully installed. The warning serves to make sure you understand that a type provider is a code generation tool and that it is going to execute and generate code based on a data source that it has no control over. As scary as that sounds, it's really okay, so click the Enable button.
 
-
 ![Visual Studio Type Provider Security Warning](~/images/typeprovidersecuritywarning.png "Visual Studio Type Provider Security Warning")  
-
 
 Now, using the GitHub API as an example, I can write something like the following...
 
@@ -33,7 +31,9 @@ Now, using the GitHub API as an example, I can write something like the followin
     [<EntryPoint>]
     let main argv = 
         let gists = Gist.GetSamples()
-        printfn "%A" (gists |> Array.map (fun g -> g.Id) |> Array.reduce(fun a e -> sprintf "%s\n%s" a e))
+        printfn "%A" (gists 
+                      |> Array.map (fun g -> g.Id)
+                      |> Array.reduce(fun a e -> sprintf "%s\n%s" a e))
         0 // return an integer exit code
 
 Thanks to the type provider I can now code against a strongly typed object that I didn't have to write. The JsonProvider uses the structure of the JSON response to create the type. Not only does the type provider give me static types, but I can also write queries against any end point whose structure matches the sample passed to the provider. This means I get code generation and simple HTTP operations!
@@ -61,13 +61,21 @@ The two equations state that we want the subview's center X and Y coordinates to
 
 Without using the custom operators provided by @@praeclarum, the code is pretty verbose:
 
-    superview.AddConstraints [|NSLayoutConstraint.Create(subview, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal, superview, NSLayoutAttribute.Equal, nfloat 1., nfloat 0.0)
-                               NSLayoutConstraint.Create(subview, NSLayoutAttribute.CenterY, NSLayoutRelation.Equal, superview, NSLayoutAttribute.Equal, nfloat 1., nfloat 0.0)|]
+    superview.AddConstraints 
+        [|
+            NSLayoutConstraint.Create(subview, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal,
+                superview, NSLayoutAttribute.Equal, nfloat 1., nfloat 0.0)
+            NSLayoutConstraint.Create(subview, NSLayoutAttribute.CenterY, NSLayoutRelation.Equal,
+                superview, NSLayoutAttribute.Equal, nfloat 1., nfloat 0.0)
+        |]
     
 Using @@praeclarum's Auto Layout code:
 
-    superview.AddConstraints [|subview.LayoutCenterX == superview.LayoutCenterX
-                               subview.LayoutCenterY == superview.LayoutCenterY|]
+    superview.AddConstraints
+        [|
+            subview.LayoutCenterX == superview.LayoutCenterX
+            subview.LayoutCenterY == superview.LayoutCenterY
+        |]
                                
 Each version has the same number of lines of code, but in the second version its MUCH easier to reason about the relationship between the subview and superview.
 
