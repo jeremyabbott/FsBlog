@@ -8,14 +8,14 @@
 
 This is my contribution to the [2015 F# Advent Calendar](https://sergeytihon.wordpress.com/2015/10/25/f-advent-calendar-in-english-2015/). I hope you like it!
 
-The majority of my code-slinging career has focused on full stack web development which hasn't necessitated a lot of complex event-driven programming, unless you include the unholy event model in Web Forms. Even in the cases where I do need to work with events, it's usually abstracted behind a library or framework (shout out to Knockout). Since I've been doing more mobile development working with events has become more relevant which inspired me to dig into them and write this post. First we'll look very briefly at async programming in F# and then look at the F# programming model for events. Then we'll bring it all together in an applicable, if a little contrived, example.
+The majority of my code-slinging career has focused on full stack web development which hasn't necessitated a lot of complex event-driven programming, unless you include the unholy event model in Web Forms. Even in the cases where I do need to work with events, it's usually abstracted behind a library or framework (shout-out to Knockout). Working with events has become much more relevant now that I'm doing more mobile development. Fortunately F# has some awesome language features that make working with events a lot of fun. Before we jump into events though we're going to look briefly at async programming in F#. Then we'll look at the F# programming model for events. Finally, we'll bring it all together in a comprehensive, if a little contrived, example.
 
 # F# Async Workflows
-For whatever reason F# async workflows have been one of the hardest things for me to grok. The concepts started to click when I read [this](http://dotnet.readthedocs.org/en/latest/async/async-fsharp.html) excellent write-up on the subject.
+For whatever reason, F# async workflows have been one of the hardest things for me to grok. The concepts started to click when I read [this](http://dotnet.readthedocs.org/en/latest/async/async-fsharp.html) excellent write-up on the subject.
 
 The goal of asynchronous programming is to start expensive and/or time consuming processes on a separate thread and continue doing work on the main thread until we have to wait for the expensive task to finish. It's kind of like multitasking except that asynchronous programming actually is more efficient. ;)
 
-The following code sample shows a couple of "expensive" tasks running in sequence. We can't do anything on the main thread until they complete.
+The following code sample shows a couple of expensive tasks running in sequence. We can't do anything on the main thread until they complete.
 
     open System
     
@@ -38,9 +38,9 @@ The following code sample shows a couple of "expensive" tasks running in sequenc
     runTimer timer1 2500
     runTimer timer2 2500
  
-While the above code is contrived it's not hard to imagine each timer representing an HTTP request to a web API to get data that our app needs before it can be useful. As it stands we have to wait 5 seconds for these tasks to finish before the app startup completes.
+While the above code is contrived, it's not hard to imagine each timer representing an HTTP request to a web API to get data that our app needs before it can be useful. As it stands we have to wait 5 seconds for these tasks to finish before the app startup completes.
 
-Now here's the same code using F# Async Workflows:
+Now here's the same code using F# async workflows:
 
     open System
     
@@ -67,7 +67,7 @@ Now here's the same code using F# Async Workflows:
     Async.Parallel [(runTimerAsync timer1 5000); (runTimerAsync timer2 5000)]
     |> Async.RunSynchronously
     
-Thanks to Async Workflows we've cut the amount of time it takes to regain control of the main thread nearly in half. But what if we could fire off each "request" independently and let the async workflow notify us when it's done? That's exactly what the following example does:
+Thanks to async workflows, we've cut the amount of time it takes to regain control of the main thread nearly in half. But what if we could fire off each request independently and let the async workflow notify us when it's done? That's exactly what the following example does:
 
     Async.StartWithContinuations(
         runTimerAsync timer1 2500,
@@ -82,19 +82,20 @@ Thanks to Async Workflows we've cut the amount of time it takes to regain contro
         (fun _ -> printfn "Cancelled Timer 2"))
 
     printfn "Some other task that isn't blocked"
-    // the output will be something like:
+    
+    // Output:
     // "Some other task that isn't blocked"
     // timer output...
     // "Timer 2 finished"
     // "Timer 1 finished"
 
-In the example above the list of async workflows is broken into two Async.StartWithContinuations calls. Each runs indepdently somewhere in the background and is given a function to execute when the task is done. Each async call is non-blocking which means work can continue on the main thread until the expensive task completes.
+In the example above, the list of async workflows is broken into two Async.StartWithContinuations calls. Each runs independently somewhere in the background and is given a function to execute when the task is done. Each async call is non-blocking, which means work can continue on the main thread until the expensive task completes.
 
 # F# Events
 
-F# events are straightforward to work with. When working with existing events you can add a handler to the event using the `Event.Add` method. Referring back to the timer instances from the previous example, we were ble to add handlers for the Elapsed event with lambdas (anonymous functions) like this:  `timer.Elapsed.Add (fun x -> printfn "%A" x)`. 
+F# events are straightforward to work with. When working with existing events, you can add a handler to the event using the `Event.Add` method. Referring back to the timer instances from the previous example, we were able to add handlers for the `Elapsed` event with lambdas (anonymous functions) like this:  `timer.Elapsed.Add (fun x -> printfn "%A" x)`. 
 
-Adding a custom event to a type (class) is also simple. Let's create a type that can determine whether or not a number is prime, and fires an event when called. *I chose prime numbers because they come up a lot in programming exercises, and it's interesting see the different ways to efficiently determine if a number is prime.*
+Adding a custom event to a type (class) is also simple. Let's create a type that determines whether or not a number is prime and fires an event when called. I chose prime numbers because they come up a lot in programming exercises, and it's interesting see the different ways to determine if a number is prime efficiently.
 
     // Type for testing primality of numbers
     // Include custom event that triggers when helper is called.
@@ -114,18 +115,16 @@ Adding a custom event to a type (class) is also simple. Let's create a type that
     primeFinder.IsPrime 3L // prints "3 is prime"
     // PrimeFound event should not fire
     primeFinder.IsPrime 4L // prints "4 is not prime"
-    
-Inside of the `PrimeFinder` type the event `primeFoundEvent` is defined. It's correpsonding type isn't defined explicitly, notice the wildcard "`_`" passed as the type to `Event<_>`, which means the compiler will figure out the event's type based on how it's used. The member `PrimeFound` is of type `IEvent<PrimeFinder * obj>`, and is what callers will wire handlers to.
 
-The member `IsPrime` is responsible for triggering the `primeFoundEvent`. The handler wired up to `PrimeFound` is called with a tuple, `Sender * Args`, passed in.
+`PrimeFinder` is a type that exposes a single method, `IsPrime`, and an event, `PrimeFound`, that we can add handlers to. `primeFoundEvent` is a local value of type `Event<_>`. Notice that the type passed to `Event` is not defined explicitly. By using the wildcard "`_`" syntax we're telling the compiler to figure out the event type based on its usage. `PrimeFinder` exposes `primeFoundEvent` as `PrimeFound` via the `Publish` method, which returns an object of type `IEvent<PrimeFinder * obj>`. Finally, `IsPrime` calls the `Trigger` method on `primeFoundEvent`. The arguments passed to `Trigger` are the self-identifier for the type, `x`, and a tuple of type `int64 * bool`. Said another way, when we call the `Trigger` method we're passing it the sender and eventArgs. 
 
-Note that `IEvent<PrimeFinder * obj>` changes to `IEvent<PrimeFinder * (int64 * bool)>` after `primeFoundEvent.Trigger` is called with an event argument of type `int64 * bool`. Once `Trigger` is called with an argument the F# compiler can infer the type of `primeFoundEvent`.
+Note that when `IsPrime` calls `primeFoundEvent.Trigger` with arguments of type `int64 * bool`, the F# compiler infers `PrimeFound`'s type to be `IEvent<PrimeFinder *(int64 * bool)>`.
 
-One of the neat things about F# events though is that you can treat them as event streams (like with Rx programming). An event stream is essentially a collection of events that you can apply function calls like `map`, `reduce`, and `filter` to.
+One of the neat things about F# events is that you can treat them as event streams (like with Rx programming). An event stream is essentially a collection of events that you can apply function calls like `map`, `reduce`, and `filter` to.
 
-So maybe we only want the event to call our handler when a number is prime? We could easily update our handler to only print when a number is prime, but what if we could separate out the responsibility of handling the event from determining whether or not we *should* handle the event?
+So maybe we only want the event to call our handler when a number is prime. We could easily update our handler to print only when a number is prime, but what if we could separate out the responsibility of handling the event from determining whether or not we *should* handle the event?
 
-The following sample take the PrimeFound event stream and returns only events whose argument is prime. The same handler used previously is then added to the filtered stream. The logic for determining *when* to handle an event is now separate from the logic describing *how* to handle an event.
+The following sample creates an event stream from `PrimeFound` and returns only events whose arguments are prime. The previous handler is then added to the filtered stream. The logic for determining *when* to handle an event is now separate from the logic describing *how* to handle an event.
 
     let primeFinder = PrimeFinder()
     
@@ -159,11 +158,11 @@ Now let's say we want to start a long running process in the background and we w
         }
         findPrimes number
 
-`findPrimesAsync` takes an list of numbers and a function that determines the "primality" of a number and then applies that function to each number in an async workflow. There are a lot of ways to iterate over the collection and apply the `primeTester` function to each item, but I went with an F# list to see what it looked like being solved recursively. Note that the first time you call the inner recurisve function `findPrimes` you can't use the `do!` binding because you're outside the async workflow (this is probably obvious to most people but it wan't to me... fortunately the compiler will tell you).
+`findPrimesAsync` takes a list of numbers and a function that determines the primality of a number and then applies that function to each number in an async workflow. There are a lot of ways to iterate over the collection and apply the `primeTester` function to each item, but I went with an F# list to see what it looked like being solved recursively. Note that the first time you call the inner recurisve function `findPrimes` you can't use the `do!` binding because you're outside the async workflow. (This is probably obvious to most people but it wasn't to me. Fortunately the compiler will tell you.)
 
-At this point we could declare a mutable binding (boo), fire off Async.Start on `findPrimesAsync` and use `PrimeFinder` to set the mutable binding whenever a prime is find. We could then access the mutable binding later. However, the best way to get comfortable with F# is to write it idomatically so let's see how we can tackle this functionally, and without mutable state.
+At this point we could declare a mutable binding (boo), fire off Async.Start on `findPrimesAsync` and use `PrimeFinder` to set the mutable binding whenever a prime is found. We could then access the mutable binding later. However, the best way to get comfortable with F# is to write it idiomatically so let's see how we can tackle this functionally, and without mutable state.
 
-We already know we can wire a handler that will get called whenever a prime is found. It would be nice if there was an event whose argument was the most recent prime number to be processed... 
+We already know we can wire a handler that will get called whenever a prime is found. It would be nice if there were an event whose argument was the most recent prime number to be processed... 
     
     // Record type give our event args some structure
     type PrimeTime =
@@ -180,42 +179,153 @@ We already know we can wire a handler that will get called whenever a prime is f
         |> Event.map (fun (_, e) -> 
             {Time = DateTime.Now; Prime = Some(fst e); ID = "p"})
 
-    let reduced = 
-        pFound
-        |> Event.scan (fun l c -> c :: l) [] 
-        |> Event.map (fun x -> x.Head)
+The value `pFound` only includes events where the `PrimeFound` returned true. The event argument is then mapped to the record type `PrimeTime`. This record type provides extra context about the event, such as when the event fired, where the event originated from, and what the event arguments were.
 
-The interesting bit here is the reduced value which is derived via `Event.scan` to build a list of events. `Events.scan` is like reduce in that it takes as an argument a function that accepts an accumulator and the current item in the collection (or stream in this case). Each time `PrimeFound` fires `Event.scan` creates a new list with the new event as the head and all the previous events as the tail. We also created a record type `PrimeTime` to give the event arguments some structure.
+For the sake of this exercise, we'll check the status of the list processing with a button click. When the button is clicked, we want to see the most recent prime number found in the collection. The following code takes the click event from a button and maps it onto an `Event` of type `PrimeTime`, just like `pFound`!
 
-For the sake of this exercise we'll check the status of the list processing with a button click. When the button is clicked we want to see the most recent prime number found in the collection. The following code takes the click event from a button and maps it into an `Event` of type `PrimeTime` just like `reduced`!
-
-    let checkStatusButton = new Button(Text = "CheckStatus")
-    let checkStatusClicked =
+    let checkStatusButton = new Button(Text = "Check Status")
+    let csClicked =
         checkStatusButton.Click 
         |> Event.map (fun _ ->
             {Time = DateTime.Now; Prime = None; ID = "c"})
 
-`reduced` and `checkStatusClicked` are both of type `IEvent<PrimeTime>`. We can now combine these event streams together. Events will be added to this stream whenever the "Check Status" button is clicked, or a new prime number is found. After the two streams are merged it would be nice if events in the stream could be grouped together so that when the "Check status" click event fires it could be paired with the latest `PrimeFound` event. For each pair of events that contains both a `Click` and a `PrimeFound` we should extract the revelant data, filter out what we don't need and return a stream that will contain the latest `PrimeTime` event when the "Check Status" button is clicked. The following code does exactly that:
+`pFound` and `csClicked` are both of type `IEvent<PrimeTime>`. This is ultimately the type needed for the final event stream. Getting there is a little bit interesting though.
+
+`csClicked` will **never** have a value for `Prime`. However, `pFound` will always have a value for `Prime`. What we need is a stream containing the latest event emitted by both `pFound` and `csClicked`.
+
+The following snippet uses `Event.merge` to combine the streams `pFound` and `csClicked`. `Event.scan` then reduces the merged stream into a stream of type `IEvent<PrimeTime option * PrimeTime option>`. The first `PrimeTime option` in the tuple is either `Some` or `None` from the `pFound` stream. The second `PrimeTime option` in the tuple is either `Some` or `None` from the `csClicked` stream. Each time either `pFound` or `csClicked` emits an event, `Event.scan` passes the tuple and newest event through an aggregation function. When a `pFound` event passes through the aggregate function a tuple of `(Some(e), None)` is returned. When a `csClicked` event passes through the aggregate function, a tuple of `(p, Some(e))` is returned. Using this pattern, the aggregate function will always return the latest `PrimeFound` event (if any) when `e` is a `Click` event, but will **not** return a `Click` event with when `e` is `PrimeFound` event. Doing this guarantees that when a tuple with a `Click` event is returned, it will have the most recent prime number found if there is one.
+
+    let reduced =
+        pFound
+        |> Event.merge csClicked
+        |> Event.scan (fun (p, c) e ->
+            match e.ID with
+            |"p" -> (Some(e), None)
+            |"c" -> (p, Some(e))
+            |_ -> (p, c)) (None, None)
+
+With `reduced` in hand, we can now get the most recent prime number found when the "Check Status" button is clicked. This new event stream should only emit events when the "Check Status" button is clicked. This means we only want events from the `reduced` stream where the second value in the tuple is `Some`. After the stream is filtered to make sure that a "Check Status" click occurred, we map the event stream back into an `IEvent<PrimeTime>` stream. The objective of this map operation is updating the `None` value on the button click event with the `Some` value from the `pFound` event if there is one. If the `pFound` stream hasn't emitted an event we return the unchanged `csClicked` event. If a `pFound` event has occurred, the prime number found from that event is swapped in for the `None` emitted by the `csClicked` event. 
+
+Below is the full code for the filtered, mapped, and refiltered `statusCheck` stream.  
 
     let statusCheck =
         reduced
-        |> Event.merge csClicked
-        |> Event.pairwise
-        |> Event.map (fun (f, s) -> { s with Prime = f.Prime})
-        |> Event.filter (fun pt -> pt.ID = "c")
-        |> Event.add (fun x -> printfn "Largest prime: %s" <| x.ToString())
+        |> Event.filter (fun (p, c) -> c.IsSome)
+        |> Event.map (fun (p, c) ->
+            match p with
+            | Some f -> { c.Value with Prime = f.Prime }
+            | None -> c.Value)
 
-The `statusCheck` event stream is created by first merging the `reduced` stream with the `checkStatusClicked` stream. Events in this merged stream will be of type `PrimeTime` and will either have an `ID` of "c" or "p" depending on from where the event originated.
+With an async workflow defined for our background process and an event stream we can listen to to get the last prime found we're ready to bring it all together. Below is the full code for this example. Try running it in F# interactive. Clicking the "Check Status" button will write either the latest prime found or 0 (zero) to FSI. Clicking "Cancel" will kill the async workflow.
 
-After the two streams are combined a stream of pairs can be created by passing the merged stream to `Event.pairwise`. The "pairwised" stream contains IEvents of the type `PrimeTime * PrimeTime`. Each `PrimeTime` instance is from either the `PrimeFound` event or the `Click` event of the merged stream. 
-
-`Event.map` maps `IEvent<PrimeTime * PrimeTime>` to `IEvent<PrimeTime>` by copying the 2nd `PrimeTime` instance and replacing it's `Prime` member with the value from the 1st `PrimeTime` instance. This step is important because when we mapped the original `Click` event to an event stream of `IEvent<PrimeTime>` the value for `Prime` was set to `None`. While it's entirely possible that all of the numbers being processed are composite (e.g. not prime), we already know that the values coming from the `ClickEvent` are never prime so it's safe to replace them with what's coming back from the `reduced` version of the `PrimeFound` stream. 
-
-Finally the Events generated by the `PrimeFound` event are filtered out. Because of the mapping done in the previous step the `Click` events in the stream have a value for `PrimeTime.Prime` that we can pass to the UI (in this case the console).
-
+    open System
+    open System.Windows.Forms
+    
+    let isPrime x =
+        let rec check i =
+            double i > sqrt (double x) || (x % i <> 0L && check (i + 1L))
+        match x with
+        | y when y < 2L -> false
+        | _ -> check 2L
+    
+    type PrimeFinder() =
+        let primeFoundEvent = Event<_>()
+        
+        member x.PrimeFound = primeFoundEvent.Publish
+        member x.IsPrime n =
+            primeFoundEvent.Trigger(x, (n, isPrime n))
+    
+    type PrimeTime =
+        {Time:DateTime; Prime:int64 option; ID:string}
+        override x.ToString() =
+            sprintf "[%s] %d - %s"
+                x.ID
+                (match x.Prime with | Some(e) -> e | None -> 0L)
+                (x.Time.ToLongTimeString())
+    
+    let findPrimesAsync numbers primeTester = 
+        let rec findPrimes n = async {
+            match n with
+            | h::t ->
+                do! Async.SwitchToNewThread()
+                primeTester h
+                do! Async.SwitchToThreadPool()
+                do! findPrimes t
+            | [] -> ()
+            
+        }
+        findPrimes numbers
+    
+    let runForm () =
+        let panel = new FlowLayoutPanel()
+        panel.Dock <- DockStyle.Fill
+        panel.WrapContents <- false
+        
+        let form = new Form(Width = 400, Height = 300, Visible = true, Text = "Test")
+        form.Controls.Add panel
+    
+        let startButton = new Button(Text = "Start")
+        let cancelButton = new Button(Text = "Cancel")
+        let checkStatusButton = new Button(Text = "CheckStatus")
+    
+        let primeFinder = PrimeFinder()
+    
+        // Transform the event args 
+        // from the button.Click
+        // and PrimeFound events
+        // into uniform structures
+        // that can be merged
+        let csClicked = 
+            checkStatusButton.Click 
+            |> Event.map (fun _ -> {Time = DateTime.Now; Prime = None; ID = "c"})
+    
+        let pFound = 
+            primeFinder.PrimeFound
+            |> Event.filter (fun (_, e) -> snd e) // only where the number was prime
+            |> Event.map (fun (_, e) -> 
+                {Time = DateTime.Now; Prime = Some(fst e); ID = "p"})
+    
+        let reduced =
+                pFound
+                |> Event.merge csClicked
+                |> Event.scan (fun (p, c) e ->
+                    match e.ID with
+                    |"p" -> (Some(e), None)
+                    |"c" -> (p, Some(e))
+                    |_ -> (p, c)) (None, None)
+    
+        let statusCheck =
+            reduced
+            |> Event.filter (fun (p, c) -> c.IsSome)
+            |> Event.map (fun (p, c) ->
+                match p with
+                | Some f -> { c.Value with Prime = f.Prime }
+                | None -> c.Value)
+        
+        statusCheck.Add (fun x -> printfn "Last prime: %s" <| x.ToString())
+        
+        let numbers = [1L..100000L]
+        startButton.Click.Add (fun _ ->
+            printfn "Started"
+            Async.StartWithContinuations(
+                findPrimesAsync numbers primeFinder.IsPrime,
+                (fun _ -> printfn "Done"),
+                (fun x -> printfn "Exception occurred: %A" x),
+                (fun _ -> printfn "Stopped")
+            )
+        )
+    
+        cancelButton.Click.Add (fun _ -> Async.CancelDefaultToken())
+    
+        panel.Controls.AddRange [|startButton;cancelButton;checkStatusButton|]
+            
+        Application.Run(form)
+    
+    runForm()
+    
 #Conclusion
  
-The basics of F# events are simple, but also extremely powerful. F# events are of type Event and implement IEvent which implements IObservable and IDelegateEvent and because of this can be mapped, filtered, and reduced allowing callers to add handlers to customized scenarios as needed. We can start expensive tasks asynchronsously and use events to check on the status of the work.
+The basics of F# events are simple but powerful. F# events are of type `Event` and implement `IEvent` which in turn implements `IObservable` and `IDelegateEvent`. Because of this, `IEvent` can be mapped, filtered, and more, which allows consumers to add handlers for highly specialized workflows. We can start expensive tasks asynchronously and use events to check on the status of the work.
 
 #Resources
 1. http://fsharpforfunandprofit.com/posts/concurrency-async-and-parallel/
