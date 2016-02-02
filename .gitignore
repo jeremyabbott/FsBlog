@@ -26,6 +26,15 @@ build/
 [Bb]uild[Ll]og.*
 tests/source/
 
+# FAKE temp dir
+.fake/
+
+# NUnit test
+TestResult.xml
+
+# Paket dir
+paket-files
+
 *_i.c
 *_p.c
 *.ilk
@@ -163,3 +172,5 @@ $RECYCLE.BIN/
 
 # Mac desktop service store files
 .DS_Store
+.paket/paket.exe
+*.orig

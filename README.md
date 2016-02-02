@@ -25,6 +25,9 @@ Alternatively you can fork or clone the [FsBlog repo](https://github.com/fsproje
 
     build
 
+1. On Windows, use the *32-bit* Visual Studio Command Prompt, the 64-bit
+   solution is not defined.
+
 This will build the tools required for usage below.
 
 ## Usage
@@ -88,4 +91,4 @@ This project is at a very early stage - so bare with me.
 - [@cdrnet](https://github.com/cdrnet)
 - [@tpetricek](https://github.com/tpetricek)
 
-The default maintainer account for projects under "fsprojects" is [@fsgit](https://github.com/fsgit) - F# Community Project Incubation Space (repo management)
+The default maintainer account for projects under "fsprojects" is [@fsprojectsgit](https://github.com/fsprojectsgit) - F# Community Project Incubation Space (repo management)
