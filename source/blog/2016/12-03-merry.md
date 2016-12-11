@@ -266,3 +266,6 @@ I hope that this simple example using a slightly modified `Result` example helpe
 3. [Fun fun function: Monads](https://www.youtube.com/watch?v=zFO1cRr5-qY)
 4. [Understanding Monads: Real World F#](https://medium.com/real-world-fsharp/understanding-monads-db30eeadf2bf#.toimrjpo8)
 5. [F# Foundation](http://fsharp.org) (specifically the mentor program. Thank you Clément!)
+
+## Last Words
+If an example here is unclear, or worse, is innaccurate please submit a pull request. I write these posts to help myself as much as being a source of information for others and that doesn't work if the information is wrong.
