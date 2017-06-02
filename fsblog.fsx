@@ -6,7 +6,7 @@ and tasks that operate with the static site generation.
 *)
 
 #I @"packages/FAKE/tools/"
-#I @"packages/FSharp.Configuration/lib/net40"
+#I @"packages/FSharp.Configuration/lib/net46"
 #I @"packages/RazorEngine/lib/net40"
 #I @"packages/Suave/lib/net40"
 #I @"bin/FsBlogLib"
@@ -27,6 +27,7 @@ open System.Text.RegularExpressions
 open System.Threading
 open RazorEngine
 open FsBlogLib
+open FSharp
 open FSharp.Configuration
 open Suave
 open Suave.Web
@@ -43,7 +44,8 @@ open Suave.Operators
 // Configuration.
 // --------------------------------------------------------------------------------------
 Environment.CurrentDirectory <- __SOURCE_DIRECTORY__
-type Config = YamlConfig<"config/config.yml">
+// type Config = YamlConfig<"config/config.yml">
+type Config = FSharp.Configuration.YamlConfig<"config/config.yml">
 
 let config = new Config()
 let root = config.url.AbsoluteUri
@@ -136,7 +138,7 @@ let socketHandler (webSocket : WebSocket) =
       let! refreshed =
         Control.Async.AwaitEvent(refreshEvent.Publish)
         |> Suave.Sockets.SocketOp.ofAsync
-      do! webSocket.send Text (System.Text.Encoding.UTF8.GetBytes "refreshed") true
+      do! webSocket.send Text (System.Text.Encoding.UTF8.GetBytes "refreshed" |> ByteSegment) true
   }
 
 let startWebServer () =
@@ -144,7 +146,7 @@ let startWebServer () =
     let serverConfig =
         { defaultConfig with
            homeFolder = Some (FullName output)
-           bindings = [HttpBinding.mk HTTP IPAddress.Loopback 8081us]
+           bindings = [HttpBinding.create HTTP IPAddress.Loopback 8081us]
         }
     let app =
       choose [
