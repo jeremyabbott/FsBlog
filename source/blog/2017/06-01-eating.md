@@ -25,3 +25,6 @@ Portland, OR 97214 - Another vegan bar owned by the same folks that own The Bye 
 Portland, Oregon, OR 97227 - Full disclosure: I have not eaten here, but it's on my list.
 * [KaTi Portland](https://www.facebook.com/katiportland/) - 
 2932 SE Division St., Portland, Oregon, OR 97202 - Awesome vegetarian/vegan Thai food. Get the Kharee Pup appetizer!
+* [Maruti](https://www.maruti-restaurant.com) - 1925 SE Hawthorne Blvd, Portland, OR  97214 - The owner and stuff here are super friendly. When you sit down they give a sample of one of their menu items and a choice of 1 of 2 wines to try. The vegan tikka masala is wonderful.
+
+There are so many restaurants I haven't covered, but I'm hungry now from listing these, so hit me up on Twitter and let me know which ones you've tried!
