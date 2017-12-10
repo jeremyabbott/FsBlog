@@ -6,7 +6,7 @@ and tasks that operate with the static site generation.
 *)
 
 #I @"packages/FAKE/tools/"
-#I @"packages/FSharp.Configuration/lib/net46"
+#I @"packages/FSharp.Configuration/lib/net45"
 #I @"packages/RazorEngine/lib/net40"
 #I @"packages/Suave/lib/net40"
 #I @"bin/FsBlogLib"
@@ -47,7 +47,7 @@ Environment.CurrentDirectory <- __SOURCE_DIRECTORY__
 // type Config = YamlConfig<"config/config.yml">
 type Config = FSharp.Configuration.YamlConfig<"config/config.yml">
 
-let config = new Config()
+let config = Config()
 let root = config.url.AbsoluteUri
 let title = config.title
 let description = config.description
@@ -67,8 +67,6 @@ let deploy = __SOURCE_DIRECTORY__ ++ config.deploy
 
 let tagRenames = List.empty<string*string> |> dict
 let exclude = []
-let references = []
-
 let special =
     [ source ++ "index.cshtml"
       source ++ "blog" ++ "index.cshtml" ]
@@ -81,7 +79,7 @@ let rsscount = 20
 let buildSite (updateTagArchive) =
     let dependencies = [ yield! Directory.GetFiles(layouts) ]
     let noModel = { Root = root; MonthlyPosts = [||]; Posts = [||]; TaglyPosts = [||]; GenerateAll = true }
-    let razor = new Razor(layouts, Model = noModel)
+    let razor = Razor(layouts, Model = noModel)
     let model =  Blog.LoadModel(tagRenames, Blog.TransformAsTemp (template, source) razor, root, blog)
 
     // Generate RSS feed
@@ -133,9 +131,9 @@ let handleWatcherEvents (events:FileChange seq) =
     refreshEvent.Trigger()
 
 let socketHandler (webSocket : WebSocket) =
-  fun cx -> socket {
+  fun _ -> socket {
     while true do
-      let! refreshed =
+      do!
         Control.Async.AwaitEvent(refreshEvent.Publish)
         |> Suave.Sockets.SocketOp.ofAsync
       do! webSocket.send Text (System.Text.Encoding.UTF8.GetBytes "refreshed" |> ByteSegment) true
@@ -164,7 +162,6 @@ let startWebServer () =
 
 /// Regenerates the entire static website from source files (markdown and fsx).
 Target "Generate" (fun _ ->
-
     buildSite (true)
 )
 
@@ -191,22 +188,18 @@ Target "New" (fun _ ->
         getBuildParam "post",
         getBuildParam "fsx",
         getBuildParam "page"
-
-    match page, post, fsx with
-    | "", "", "" -> traceError "Please specify either a new 'page', 'post' or 'fsx'."
-    | _, "", ""  -> BlogPosts.CreateMarkdownPage source page
-    | "", _, ""  -> BlogPosts.CreateMarkdownPost blog post
-    | "", "", _  -> BlogPosts.CreateFsxPost blog fsx
-    | _, _, _    -> traceError "Please specify only one argument, 'post' or 'fsx'."
+    printfn "post: %s" post
+    // match page, post, fsx with
+    // | "", "", "" -> traceError "Please specify either a new 'page', 'post' or 'fsx'."
+    // | _, "", ""  -> BlogPosts.CreateMarkdownPage source page
+    // | "", _, ""  -> BlogPosts.CreateMarkdownPost blog post
+    // | "", "", _  -> BlogPosts.CreateFsxPost blog fsx
+    // | _, _, _    -> traceError "Please specify only one argument, 'post' or 'fsx'."
 )
 
 Target "Clean" (fun _ ->
     CleanDirs [output]
 )
-
-Target "Deploy" DoNothing
-
-Target "Commit" DoNothing
 
 Target "DoNothing" DoNothing
 
