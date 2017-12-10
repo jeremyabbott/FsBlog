@@ -5,10 +5,10 @@
 url: http://localhost:8080/FsBlog
 gitlocation: https://github.com/jeremyabbott/jeremyabbott.github.io.git
 gitbranch: master
-title: Jeremy Abbott 
+title: Jeremy Abbott
 description: >
     I need a description
-
+subtitle: tbd
 source: source/
 blog: source/blog/
 blogIndex: source/blog/index.cshtml

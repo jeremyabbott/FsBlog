@@ -1,13 +1,31 @@
-#!/bin/bash
-if test "$OS" = "Windows_NT"
+#!/usr/bin/env bash
+
+set -eu
+
+cd "$(dirname "$0")"
+
+PAKET_EXE=.paket/paket.exe
+FAKE_EXE=packages/FAKE/tools/FAKE.exe
+
+FSIARGS=""
+FSIARGS2=""
+OS=${OS:-"unknown"}
+if [ "$OS" != "Windows_NT" ]
 then
-  # use .Net
-  [ ! -f .paket/paket.exe ] && .paket/paket.bootstrapper.exe
-  .paket/paket.exe restore
-  packages/FAKE/tools/FAKE.exe build.fsx $@
-else
-  # use mono
-  [ ! -f .paket/paket.exe ] && mono --runtime=v4.0 .paket/paket.bootstrapper.exe
-  mono --runtime=v4.0 .paket/paket.exe restore
-  mono --runtime=v4.0 packages/FAKE/tools/FAKE.exe $@ --fsiargs -d:MONO build.fsx
+  # Can't use FSIARGS="--fsiargs -d:MONO" in zsh, so split it up
+  # (Can't use arrays since dash can't handle them)
+  FSIARGS="--fsiargs"
+  FSIARGS2="-d:MONO"
 fi
+
+run() {
+  if [ "$OS" != "Windows_NT" ]
+  then
+    mono "$@"
+  else
+    "$@"
+  fi
+}
+
+run $PAKET_EXE restore --verbose
+run $FAKE_EXE "$@" $FSIARGS $FSIARGS2 build.fsx

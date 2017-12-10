@@ -44,12 +44,12 @@ open Suave.Operators
 // Configuration.
 // --------------------------------------------------------------------------------------
 Environment.CurrentDirectory <- __SOURCE_DIRECTORY__
-// type Config = YamlConfig<"config/config.yml">
 type Config = FSharp.Configuration.YamlConfig<"config/config.yml">
 
 let config = Config()
 let root = config.url.AbsoluteUri
 let title = config.title
+let subtitle = config.subtitle
 let description = config.description
 let gitLocation = config.gitlocation
 let gitbranch = config.gitbranch
@@ -78,9 +78,9 @@ let rsscount = 20
 
 let buildSite (updateTagArchive) =
     let dependencies = [ yield! Directory.GetFiles(layouts) ]
-    let noModel = { Root = root; MonthlyPosts = [||]; Posts = [||]; TaglyPosts = [||]; GenerateAll = true }
+    let noModel = { Root = root; SiteTitle = title; SiteSubtitle = subtitle; MonthlyPosts = [||]; Posts = [||]; TaglyPosts = [||]; GenerateAll = true }
     let razor = Razor(layouts, Model = noModel)
-    let model =  Blog.LoadModel(tagRenames, Blog.TransformAsTemp (template, source) razor, root, blog)
+    let model =  Blog.LoadModel(tagRenames, Blog.TransformAsTemp (template, source) razor, root, blog, title, subtitle)
 
     // Generate RSS feed
     Blog.GenerateRss root title description model rsscount (output ++ "rss.xml")
@@ -104,7 +104,7 @@ let buildSite (updateTagArchive) =
     let filesToProcess =
         FileHelpers.GetSourceFiles source output
         |> FileHelpers.SkipExcludedFiles exclude
-        |> FileHelpers.TransformOutputFiles output
+        |> FileHelpers.TransformOutputFiles output source
         |> FileHelpers.FilterChangedFiles dependencies special
 
     let razor = new Razor(layouts, Model = model)
@@ -188,13 +188,12 @@ Target "New" (fun _ ->
         getBuildParam "post",
         getBuildParam "fsx",
         getBuildParam "page"
-    printfn "post: %s" post
-    // match page, post, fsx with
-    // | "", "", "" -> traceError "Please specify either a new 'page', 'post' or 'fsx'."
-    // | _, "", ""  -> BlogPosts.CreateMarkdownPage source page
-    // | "", _, ""  -> BlogPosts.CreateMarkdownPost blog post
-    // | "", "", _  -> BlogPosts.CreateFsxPost blog fsx
-    // | _, _, _    -> traceError "Please specify only one argument, 'post' or 'fsx'."
+    match page, post, fsx with
+    | "", "", "" -> traceError "Please specify either a new 'page', 'post' or 'fsx'."
+    | _, "", ""  -> BlogPosts.CreateMarkdownPage source page
+    | "", _, ""  -> BlogPosts.CreateMarkdownPost blog post
+    | "", "", _  -> BlogPosts.CreateFsxPost blog fsx
+    | _, _, _    -> traceError "Please specify only one argument, 'post' or 'fsx'."
 )
 
 Target "Clean" (fun _ ->

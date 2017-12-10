@@ -13,9 +13,9 @@
 @foreach (var post in Enumerable.Take(Model.Posts, 10))
     {
         <article>
-            <h2><a href="/blog/@post.Url/">@post.Title - @PostDate(post.Date)</a></h2>
+            <h2><a href="/blog/@post.Url/index.html">@post.Title - @PostDate(post.Date)</a></h2>
             <p>@post.Description</p>
-            <p><a href="/blog/@post.Url/">Read more...<a/></p>
+            <p><a href="/blog/@post.Url/index.html">Read more...<a/></p>
         </article>
     }
 </div>
