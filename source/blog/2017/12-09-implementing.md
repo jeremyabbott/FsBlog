@@ -17,6 +17,7 @@ The SAFE Bookstore repo details how to publish the application to Azure's Web Ap
 As it turns out, [the steps are fairly simple](https://docs.microsoft.com/en-us/azure/app-service/containers/tutorial-custom-docker-image), and you can do it directly from VS Code! The first time I tried to do this, it didn't work, but I'm fairly certain the problem was between the user and the keyboard, as it's worked every time since then.
 
 ## The Azure Account extension for VS Code
+
 These steps assume you have [VS Code](https://code.visualstudio.com/) installed, so if you don't have it, go get it. It's the best editor out there, and its especially great for F# thanks to [Ionide](http://ionide.io/).
 
 Next, get the [Azure Account](https://marketplace.visualstudio.com/items?itemName=ms-vscode.azure-account) extension. You can install it directly from the link, or look it up in the VS Code Extensions tool directly in VS Code.
@@ -36,6 +37,7 @@ This command is going to prompt you to copy a device code (shown in the prompt) 
 In the browser, enter your device code. Next, login using your Azure credentials. If you don't have an account you'll need to create one, and fortunately you can do that from the Azure Account extension too.
 
 ## Install the Remaining Dependencies
+
 Go ahead and clone the SAFE BookStore repo.
 
 **Don't forget to use your github username here**:
